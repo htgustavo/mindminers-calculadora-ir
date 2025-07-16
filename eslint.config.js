@@ -38,6 +38,7 @@ export default defineConfig([
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   {
