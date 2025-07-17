@@ -7,8 +7,8 @@ import {
   PageTitle,
 } from "@/components/ui/page-container";
 
-import { OperationCharts } from "./componentts/OperationCharts";
-import StatsCards from "./componentts/StatsCards";
+import { OperationCharts } from "./components/OperationCharts";
+import StatsCards from "./components/StatsCards";
 
 const Dashboard = () => {
   return (
