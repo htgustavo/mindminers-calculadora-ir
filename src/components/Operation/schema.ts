@@ -4,7 +4,7 @@ export const operationSchema = z.object({
   date: z.string().min(1, "Data é obrigatória"),
   ticker: z
     .string()
-    .min(1, "Ticker obrigatório")
+    .min(1, "Informe o código da ação")
     .transform((v) => v.toUpperCase()),
   type: z.enum(["BUY", "SELL"], {
     message: "Tipo inválido",
@@ -14,6 +14,6 @@ export const operationSchema = z.object({
     message: "Valor da ação deve ser maior que 0",
   }),
   brokerage: z.number().min(1, {
-    message: "Valor da corrretagem deve ser maior que 0",
+    message: "Taxa da corrretagem deve ser maior que 0",
   }),
 });
