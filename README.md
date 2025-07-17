@@ -146,7 +146,7 @@ Este projeto foi desenvolvido como parte de um desafio técnico, com as seguinte
 ## 👨‍💻 Autor
 
 **Hilton Gustavo**  
-[LinkedIn](https://www.linkedin.com/in/hiltongustavol) • [GitHub](https://github.com/htgustavo)
+[LinkedIn](https://www.linkedin.com/in/hiltongustavo) • [GitHub](https://github.com/htgustavo)
 
 ---
 
