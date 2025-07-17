@@ -23,10 +23,10 @@ export function AppHeader() {
           className="transition-all duration-300 hover:scale-105"
           type="button"
           onClick={handleToggleModal}
-          aria-label="Nova transação"
+          aria-label="Nova Operação"
         >
           <Plus className="me-2" />
-          Nova transação
+          Nova Operação
         </Button>
       </div>
       <OperationDialog open={isModalOpen} onOpenChange={setIsModalOpen} />
