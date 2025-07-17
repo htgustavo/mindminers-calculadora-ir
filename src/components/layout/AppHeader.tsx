@@ -14,13 +14,13 @@ export function AppHeader() {
   };
 
   return (
-    <header className="flex h-16 w-full shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+    <header className="sticky top-0 z-50 flex h-19 w-full items-center gap-2 bg-white px-4 shadow transition-all">
       <div className="flex w-full items-center justify-between gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Button
           variant="default"
           size="lg"
-          className="transition-all duration-300 hover:scale-105"
+          className="z-30 transition-all duration-300 hover:scale-105"
           type="button"
           onClick={handleToggleModal}
           aria-label="Nova Operação"

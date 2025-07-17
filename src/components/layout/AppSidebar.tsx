@@ -15,7 +15,7 @@ import {
 
 const menuItems = [
   { title: "Dashboard", url: "/", icon: BarChart3 },
-  { title: "Histórico", url: "/transactions", icon: History },
+  { title: "Histórico de Operações", url: "/transactions", icon: History },
 ];
 
 export function AppSidebar() {
@@ -29,9 +29,9 @@ export function AppSidebar() {
       : "hover:bg-accent transition-all duration-200";
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
-      <SidebarContent className="border-border border-r">
-        <div className="border-border border-b p-4">
+    <Sidebar className={collapsed ? "w-40" : "w-64"} collapsible="icon">
+      <SidebarContent>
+        <div className="p-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200">
               <DollarSign className="text-primary h-5 w-5" />
@@ -60,7 +60,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="h-5 w-5" />
+                      <item.icon className="h-6 w-6" />
                       {!collapsed && <span className="ml-3">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
