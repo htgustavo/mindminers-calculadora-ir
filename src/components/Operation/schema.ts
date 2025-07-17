@@ -9,7 +9,11 @@ export const operationSchema = z.object({
   type: z.enum(["BUY", "SELL"], {
     message: "Tipo inválido",
   }),
-  price: z.coerce.number().positive("Preço deve ser positivo"),
   quantity: z.coerce.number().int().positive("Quantidade deve ser positiva"),
-  brokerage: z.coerce.number().min(0, "Corretagem inválida"),
+  price: z.number().min(1, {
+    message: "Valor da ação deve ser maior que 0",
+  }),
+  brokerage: z.number().min(1, {
+    message: "Valor da corrretagem deve ser maior que 0",
+  }),
 });

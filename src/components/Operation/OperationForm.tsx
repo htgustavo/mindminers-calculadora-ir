@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, TrendingDown, TrendingUp } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { NumericFormat } from "react-number-format";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -65,9 +66,6 @@ const FormOperation = ({
 
     const result = addOperation(operation);
 
-    console.log(result);
-
-    // Toast personalizado baseado no resultado
     if (operation.type === "SELL" && result.result > 0) {
       toast("🎉 Lucro realizado!", {
         description: `Vendeu ${operation.quantity} ações ${operation.ticker} com lucro de R$ ${result.result.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
@@ -134,13 +132,13 @@ const FormOperation = ({
                   <SelectContent>
                     <SelectItem value="BUY">
                       <div className="flex items-center gap-2">
-                        <TrendingUp className="text-profit h-4 w-4" />
+                        <TrendingUp className="h-4 w-4 text-green-500" />
                         Compra
                       </div>
                     </SelectItem>
                     <SelectItem value="SELL">
                       <div className="flex items-center gap-2">
-                        <TrendingDown className="text-loss h-4 w-4" />
+                        <TrendingDown className="h-4 w-4 text-red-500" />
                         Venda
                       </div>
                     </SelectItem>
@@ -152,7 +150,7 @@ const FormOperation = ({
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 items-start gap-4">
           <FormField
             control={form.control}
             name="ticker"
@@ -194,7 +192,7 @@ const FormOperation = ({
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 items-start gap-4">
           <FormField
             control={form.control}
             name="price"
@@ -202,13 +200,18 @@ const FormOperation = ({
               <FormItem>
                 <FormLabel>Preço por Ação (R$)</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    {...field}
-                    value={field.value as number | undefined}
-                    className="text-right font-mono"
+                  <NumericFormat
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value.floatValue);
+                    }}
+                    decimalScale={2}
+                    fixedDecimalScale
+                    decimalSeparator=","
+                    thousandSeparator="."
+                    prefix="R$ "
+                    allowNegative={false}
+                    customInput={Input}
                   />
                 </FormControl>
                 <FormMessage />
@@ -220,15 +223,20 @@ const FormOperation = ({
             name="brokerage"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Taxa de Corretagem (R$)</FormLabel>
+                <FormLabel>Taxa de Corretagem</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    {...field}
-                    value={field.value as number | undefined}
-                    className="text-right font-mono"
+                  <NumericFormat
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value.floatValue);
+                    }}
+                    decimalScale={2}
+                    fixedDecimalScale
+                    decimalSeparator=","
+                    thousandSeparator="."
+                    prefix="R$ "
+                    allowNegative={false}
+                    customInput={Input}
                   />
                 </FormControl>
                 <FormMessage />
@@ -237,25 +245,37 @@ const FormOperation = ({
           />
         </div>
 
-        <Button
-          type="submit"
-          variant="default"
-          size="lg"
-          className="w-full"
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? (
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-              Processando...
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4" />
-              Registrar Operação
-            </div>
-          )}
-        </Button>
+        <div className="mt-6 flex items-center justify-end gap-4 border-t pt-4">
+          <Button
+            type="button"
+            variant="outline"
+            size="lg"
+            className="cursor-pointer"
+            disabled={form.formState.isSubmitting}
+            onClick={() => onFinish(false)}
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="submit"
+            variant="default"
+            size="lg"
+            className="cursor-pointer"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Processando...
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4" />
+                Registrar Operação
+              </div>
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );
