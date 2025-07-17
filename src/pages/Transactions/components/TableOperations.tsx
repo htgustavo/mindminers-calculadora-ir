@@ -10,7 +10,7 @@ import {
 import { useOperationContext } from "@/context/OperationContext";
 import type { Operation } from "@/types/operations";
 
-const TableTransactions = ({ operations }: { operations: Operation[] }) => {
+const TableOperations = ({ operations }: { operations: Operation[] }) => {
   const { taxResults } = useOperationContext();
 
   const getOperationResult = (operationId: string) => {
@@ -48,7 +48,11 @@ const TableTransactions = ({ operations }: { operations: Operation[] }) => {
               </TableCell>
               <TableCell>
                 <Badge
-                  variant={operation.type === "BUY" ? "secondary" : "outline"}
+                  className={
+                    operation.type === "BUY"
+                      ? "bg-green-200 text-green-800"
+                      : "bg-red-200 text-red-800"
+                  }
                 >
                   {operation.type === "BUY" ? "Compra" : "Venda"}
                 </Badge>
@@ -110,4 +114,4 @@ const TableTransactions = ({ operations }: { operations: Operation[] }) => {
   );
 };
 
-export default TableTransactions;
+export default TableOperations;
