@@ -41,7 +41,7 @@ const FilterOperations = ({
   return (
     <Collapsible open={isFilterOpen} onOpenChange={setIsFilterOpen}>
       <CollapsibleTrigger asChild>
-        <div className="flex items-center justify-end py-4">
+        <div className="flex items-center justify-end pb-4">
           <Button variant="ghost" size="sm" className="hover-scale gap-2">
             <Filter className="h-4 w-4" />
             Filtros

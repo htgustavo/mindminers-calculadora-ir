@@ -21,7 +21,7 @@ import FilterOperations from "./components/FilterOperations";
 import TableOperations from "./components/TableOperations";
 
 export default function TransactionsPage() {
-  const { operations } = useOperationContext();
+  const { operations, taxResults } = useOperationContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("ALL");
   const [filterTicker, setFilterTicker] = useState("ALL");
@@ -41,6 +41,11 @@ export default function TransactionsPage() {
     return matchesSearch && matchesType && matchesTicker;
   });
 
+  // Obter resultado de uma operação específica
+  const getOperationResult = (operationId: string) => {
+    return taxResults.find((result) => result.operation.id === operationId);
+  };
+
   return (
     <PageContainer>
       <PageHeader>
@@ -52,7 +57,7 @@ export default function TransactionsPage() {
         </PageHeaderContent>
       </PageHeader>
       <PageContent>
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Filtros */}
           <FilterOperations
             searchTerm={searchTerm}
@@ -86,6 +91,51 @@ export default function TransactionsPage() {
               )}
             </CardContent>
           </Card>
+
+          {/* Resumo */}
+          {filteredOperations.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Resumo do Período</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <div className="text-center">
+                    <p className="text-foreground text-2xl font-bold">
+                      {
+                        filteredOperations.filter((op) => op.type === "BUY")
+                          .length
+                      }
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Operações de Compra
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-foreground text-2xl font-bold">
+                      {
+                        filteredOperations.filter((op) => op.type === "SELL")
+                          .length
+                      }
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Operações de Venda
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-primary text-2xl font-bold">
+                      R${" "}
+                      {filteredOperations
+                        .map((op) => getOperationResult(op.id)?.tax || 0)
+                        .reduce((sum, tax) => sum + tax, 0)
+                        .toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                    </p>
+                    <p className="text-muted-foreground text-sm">Total de IR</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </PageContent>
     </PageContainer>
