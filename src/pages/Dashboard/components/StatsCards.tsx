@@ -27,7 +27,7 @@ const StatsCards = () => {
       icon: TrendingUp,
       variant: "success" as const,
       prefix: "R$",
-      color: "text-profit",
+      color: "text-green-700",
     },
     {
       title: "Prejuízo Total",
@@ -35,7 +35,7 @@ const StatsCards = () => {
       icon: TrendingDown,
       variant: "destructive" as const,
       prefix: "R$",
-      color: "text-loss",
+      color: "text-red-700",
     },
     {
       title: "Operações",

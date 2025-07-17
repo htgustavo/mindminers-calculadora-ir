@@ -7,6 +7,7 @@ import {
   PageTitle,
 } from "@/components/ui/page-container";
 
+import { OperationCharts } from "./componentts/OperationCharts";
 import StatsCards from "./componentts/StatsCards";
 
 const Dashboard = () => {
@@ -22,6 +23,9 @@ const Dashboard = () => {
       </PageHeader>
       <PageContent>
         <StatsCards />
+
+        {/* Gráficos */}
+        <OperationCharts />
       </PageContent>
     </PageContainer>
   );
