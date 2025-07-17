@@ -1,4 +1,4 @@
-import { BarChart3, DollarSign } from "lucide-react";
+import { BarChart3, DollarSign, History } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -13,7 +13,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const menuItems = [{ title: "Dashboard", url: "/", icon: BarChart3 }];
+const menuItems = [
+  { title: "Dashboard", url: "/", icon: BarChart3 },
+  { title: "Histórico", url: "/transactions", icon: History },
+];
 
 export function AppSidebar() {
   const { state } = useSidebar();

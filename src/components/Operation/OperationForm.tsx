@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, TrendingDown, TrendingUp } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useOperationContext } from "@/context/OperationContext";
 import type { Operation } from "@/types/operations";
 
 import { operationSchema } from "./schema";
@@ -27,7 +29,13 @@ import { operationSchema } from "./schema";
 type OperationFormInput = z.input<typeof operationSchema>;
 type OperationFormData = z.infer<typeof operationSchema>;
 
-const FormOperation = () => {
+const FormOperation = ({
+  onFinish,
+}: {
+  onFinish: (status: boolean) => void;
+}) => {
+  const { addOperation } = useOperationContext();
+
   const form = useForm<OperationFormInput, any, OperationFormData>({
     resolver: zodResolver(operationSchema),
     defaultValues: {
@@ -55,8 +63,26 @@ const FormOperation = () => {
       createdAt: new Date().toISOString(),
     };
 
-    console.log("operation", operation);
+    const result = addOperation(operation);
 
+    console.log(result);
+
+    // Toast personalizado baseado no resultado
+    if (operation.type === "SELL" && result.result > 0) {
+      toast("🎉 Lucro realizado!", {
+        description: `Vendeu ${operation.quantity} ações ${operation.ticker} com lucro de R$ ${result.result.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
+      });
+    } else if (operation.type === "SELL" && result.result < 0) {
+      toast("📊 Prejuízo registrado", {
+        description: `Prejuízo de R$ ${Math.abs(result.result).toLocaleString("pt-BR", { minimumFractionDigits: 2 })} será compensado em lucros futuros`,
+      });
+    } else {
+      toast("✅ Compra registrada!", {
+        description: `${operation.quantity} ações ${operation.ticker} adicionadas à carteira`,
+      });
+    }
+
+    // Reset form após delay
     setTimeout(() => {
       form.reset({
         date: new Date().toISOString().split("T")[0],
@@ -66,7 +92,8 @@ const FormOperation = () => {
         quantity: 0,
         brokerage: 0,
       });
-    }, 3000);
+      onFinish(false);
+    }, 1000);
   };
 
   return (

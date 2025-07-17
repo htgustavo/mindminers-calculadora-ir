@@ -33,7 +33,7 @@ export function OperationDialog({ open, onOpenChange }: OperationModalProps) {
 
         <div className="mt-4">
           <div className="space-y-4">
-            <FormOperation />
+            <FormOperation onFinish={onOpenChange} />
           </div>
 
           {/* Resultado */}
