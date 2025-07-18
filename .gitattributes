@@ -1,0 +1,19 @@
+# Força quebra de linha LF em todos os arquivos de texto
+* text=auto eol=lf
+
+# Tipos de arquivos tratados como texto (reforça o comportamento)
+*.js     text
+*.jsx    text
+*.ts     text
+*.tsx    text
+*.json   text
+*.css    text
+*.scss   text
+*.html   text
+*.md     text
+*.yml    text
+*.yaml   text
+*.env    text
+*.sh     text
+*.prettierrc text
+*.editorconfig text
