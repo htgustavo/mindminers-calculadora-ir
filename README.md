@@ -98,6 +98,29 @@ http://localhost:5173
 
 ---
 
+## ⚠️ Problemas com quebras de linha no Windows
+
+Se você clonar este repositório no Windows, pode encontrar erros como:
+
+Delete ␍ eslint(prettier/prettier)
+
+
+Isso acontece porque o Git converte quebras de linha para `CRLF`, mas este projeto usa `LF` (Unix style) por padrão.
+
+### ✅ Como corrigir:
+
+Execute o comando abaixo para forçar a correção das quebras de linha com Prettier:
+
+```bash
+npx prettier --write .
+🛠️ Configuração recomendada (Git):
+Para evitar esse problema em todos os seus projetos no futuro, configure o Git com:
+
+bash
+``git config --global core.autocrlf input
+
+---
+
 ## 📂 Estrutura do Projeto
 
 ```
