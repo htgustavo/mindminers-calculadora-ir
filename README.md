@@ -1,4 +1,3 @@
-
 # 📊 Calculadora de Imposto de Renda para operações na bolsa - React Web App
 
 Calculadora de Imposto de Renda sobre operações na bolsa de valores, desenvolvida com React.  
@@ -22,23 +21,27 @@ O sistema permite registrar operações de compra e venda de ações e calcula a
 ## 🧠 Regras de cálculo (simplificadas)
 
 ### 💰 Compra:
+
 ```
 PM = (PM * QM + PC * QC + TC) / (QM + QC)
 QM = QM + QC
 ```
 
 ### 💸 Venda:
+
 ```
 RA = (PV - PM) * QV - TV
 QM = QM - QV
 ```
 
 ### 📉 Prejuízo:
+
 ```
 PA = PA + abs(RA)
 ```
 
 ### 🧾 Lucro:
+
 ```
 IR = (RA - min(RA, PA)) * 0.15
 PA = PA - min(RA, PA)
@@ -62,30 +65,33 @@ PA = PA - min(RA, PA)
 - 💅 TailwindCSS (ou outro framework de UI)
 - 📊 Recharts (para gráficos)
 - 🧩 shadcn/ui — biblioteca de componentes de UI acessível, estilizada com Tailwind e baseada em Radix
--📋 React Hook Form + Zod — para formulários e validações
-
+  -📋 React Hook Form + Zod — para formulários e validações
 
 ---
 
 ## 🚀 Como rodar o projeto
 
 1. **Clone o repositório**
+
 ```bash
 git clone https://github.com/htgustavo/mindminers-calculadora-ir.git
 cd nome-do-repo
 ```
 
 2. **Instale as dependências**
+
 ```bash
 npm install
 ```
 
 3. **Inicie o projeto**
+
 ```bash
 npm run dev
 ```
 
 4. **Abra no navegador**
+
 ```
 http://localhost:5173
 ```
@@ -116,15 +122,16 @@ src/
 
 ```ts
 [
-  { type: 'BUY', price: 25.90, quantity: 100, brokerage: 8.50 },
-  { type: 'BUY', price: 26.40, quantity: 200, brokerage: 8.50 },
-  { type: 'BUY', price: 27.87, quantity: 100, brokerage: 8.50 },
-  { type: 'SELL', price: 26.53, quantity: 100, brokerage: 8.50 },
-  { type: 'SELL', price: 27.39, quantity: 100, brokerage: 8.50 },
-]
+  { type: "BUY", price: 25.9, quantity: 100, brokerage: 8.5 },
+  { type: "BUY", price: 26.4, quantity: 200, brokerage: 8.5 },
+  { type: "BUY", price: 27.87, quantity: 100, brokerage: 8.5 },
+  { type: "SELL", price: 26.53, quantity: 100, brokerage: 8.5 },
+  { type: "SELL", price: 27.39, quantity: 100, brokerage: 8.5 },
+];
 ```
 
 🧾 Resultado:
+
 - Lucro total: R$ 59,87
 - Prejuízo acumulado: R$ 26,12
 - IR devido: R$ 5,06
